@@ -16,7 +16,7 @@
     "pack": "yarn run pack:main && yarn run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-react/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-react/webpack.renderer.config.js",
-    "postinstall": "yarn run lint:fix",
+    "postinstall": "yarn run lint:fix && electron-rebuild",
     "test": "yarn run test:unit && yarn run test:e2e",
     "test:unit": "jest -c jest.unit.config.js",
     "test:e2e": "yarn run pack && jest -c jest.e2e.config.js"
@@ -56,8 +56,11 @@
     }
   },
   "dependencies": {
+    "electron-rebuild": "^2.3.5",
+    "johnny-five": "^2.0.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "robotjs": "^0.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

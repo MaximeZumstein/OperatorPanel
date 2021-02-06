@@ -20,9 +20,12 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin');
 
 let mainConfig = {
   entry: {
-    main: path.join(__dirname, '../src/main/index.js')
+    main: path.join(__dirname, '../src/main/index.js'),
+    preload: path.join(__dirname, '../src/main/preload.js')
   },
-  // externals,
+  externals: {
+    serialport: 'commonjs serialport'
+  },
   module: {
     rules: [
       {
@@ -53,7 +56,7 @@ let mainConfig = {
     ]
   },
   node: {
-    __dirname: process.env.NODE_ENV !== 'production',
+    __dirname: false,
     __filename: process.env.NODE_ENV !== 'production'
   },
   output: {
