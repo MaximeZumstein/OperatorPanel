@@ -24,6 +24,7 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
+    title: 'OperatorPanel',
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
