@@ -4,7 +4,7 @@ import { Panel } from './components/Panel/Panel'
 
 const App = () => {
   return (
-    <div className="z-0 bg-gray-50 w-screen h-screen">
+    <div className="z-0 bg-gray-50 w-screen h-screen overflow-hidden relative">
       <div className="container flex justify-center">
         <div className="">
           <p>Hello World</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { EditorPanel } from '../Editor'
@@ -24,6 +24,22 @@ const componentsData = [
 
 export const Panel = function() {
   const [selectedComponent, setSelectedComponent] = useState(null)
+  const panelRef = useRef(null)
+
+  useEffect(() => {
+    function handleClick(event) {
+      if (!panelRef) return
+      if (!panelRef.current.contains(event.target)) {
+        setSelectedComponent(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+    }
+  }, [panelRef])
 
   const onClicked = function(id) {
     const finded = componentsData.find((c) => c.id === id)
@@ -35,12 +51,12 @@ export const Panel = function() {
   )
 
   return (
-    <>
+    <div ref={panelRef}>
       <div className="bg-gray-300 w-2/3 h-32 rounded-xl table">
         {components}
       </div>
       <EditorPanel editing={selectedComponent}></EditorPanel>
-    </>
+    </div>
   )
 }
 
