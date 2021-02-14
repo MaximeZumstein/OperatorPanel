@@ -24,12 +24,13 @@ const componentsData = [
 
 export const Panel = function() {
   const [selectedComponent, setSelectedComponent] = useState(null)
+  const panelBgRef = useRef(null)
   const panelRef = useRef(null)
 
   useEffect(() => {
     function handleClick(event) {
-      if (!panelRef) return
-      if (!panelRef.current.contains(event.target)) {
+      if (!panelRef || !panelBgRef) return
+      if (event.target === panelBgRef.current || !panelRef.current.contains(event.target)) {
         setSelectedComponent(null)
       }
     }
@@ -51,8 +52,8 @@ export const Panel = function() {
   )
 
   return (
-    <div ref={panelRef}>
-      <div className="bg-gray-300 w-2/3 h-32 rounded-xl table">
+    <div ref={panelRef} className="w-full h-full">
+      <div ref={panelBgRef} className="bg-gray-300 w-2/3 h-32 rounded-xl table">
         {components}
       </div>
       <EditorPanel editing={selectedComponent}></EditorPanel>
