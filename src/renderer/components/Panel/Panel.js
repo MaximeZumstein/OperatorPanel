@@ -6,19 +6,63 @@ import { EditorPanel } from '../Editor'
 const componentsData = [
   {
     id: 'dl',
-    name: 'Dispatch L'
+    name: 'Dispatch L',
+    configuration: {
+      design: {
+        constructor: 'Schneider',
+        theme: 'XB5',
+        reference: 'ZB5AW3'
+      },
+      pins: {
+        in: 8,
+        led: 13
+      }
+    }
   },
   {
     id: 'g',
-    name: 'Gates'
+    name: 'Gates',
+    configuration: {
+      design: {
+        constructor: 'Schneider',
+        theme: 'XB5',
+        reference: 'ZB5AD'
+      },
+      pins: {
+        'in 1': 2,
+        'in 2': 3
+      }
+    }
   },
   {
     id: 'r',
-    name: 'Restrains'
+    name: 'Restrains',
+    configuration: {
+      design: {
+        constructor: 'Schneider',
+        theme: 'XB5',
+        reference: 'ZB5AD'
+      },
+      pins: {
+        'in 1': 4,
+        'in 2': 5
+      }
+    }
   },
   {
     id: 'dr',
-    name: 'Dispatch R'
+    name: 'Dispatch R',
+    configuration: {
+      design: {
+        constructor: 'Schneider',
+        theme: 'XB5',
+        reference: 'ZB5AW3'
+      },
+      pins: {
+        in: 8,
+        led: 13
+      }
+    }
   }
 ]
 
@@ -53,7 +97,7 @@ export const Panel = function() {
 
   return (
     <div ref={panelRef} className="w-full h-full">
-      <div ref={panelBgRef} className="bg-gray-300 w-2/3 h-32 rounded-xl table">
+      <div ref={panelBgRef} className="bg-gray-300 w-2/3 h-full rounded-xl grid grid-flow-col justify-around mx-auto my-5 p-2">
         {components}
       </div>
       <EditorPanel editing={selectedComponent}></EditorPanel>
@@ -62,10 +106,18 @@ export const Panel = function() {
 }
 
 const Component = function ({ component, selected, onClick }) {
-  const { id } = component
+  const { id, configuration } = component
+  const { design } = configuration
+
+  const src = require(`../../assets/components/${design.theme}/${design.reference}.png`).default
+
   return (
-    <div className={`border-2 bg-black w-10 h-10 ${selected ? 'border-blue-400' : ''}`} onClick={() => onClick(id)}>
-    </div>
+    <img
+      src={src}
+      className={`${selected ? 'ring border-blue-400 border-' : ''}`}
+      onClick={() => onClick(id)}
+    >
+    </img>
   )
 }
 
