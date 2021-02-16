@@ -9,6 +9,7 @@ const App = () => {
         <h1 className="text-4xl text-center">OperatorPanel</h1>
         <Panel></Panel>
       </div>
+      <span className="absolute bottom-0 m-2">Powered by EpOperator</span>
     </div>
   )
 }
