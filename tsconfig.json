@@ -4,7 +4,10 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/operator-panel"
+      "path": "./apps/operator-panel-ui"
+    },
+    {
+      "path": "./libs/panel-core"
     }
   ]
 }
