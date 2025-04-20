@@ -14,7 +14,7 @@
   "include": ["**/*.ts"],
   "references": [
     {
-      "path": "../../libs/panel-core"
+      "path": "../../libs/panel-core/tsconfig.lib.json"
     }
   ]
 }

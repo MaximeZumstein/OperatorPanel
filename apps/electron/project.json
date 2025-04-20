@@ -6,12 +6,16 @@
   "targets": {
     "build": {
       "executor": "nx-electron:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/electron",
         "main": "apps/electron/src/main.ts",
         "tsConfig": "apps/electron/tsconfig.app.json",
-        "assets": ["apps/electron/src/assets"]
+        "assets": [
+          "apps/electron/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -57,7 +61,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{projectRoot}/test-output/jest/coverage"],
+      "outputs": [
+        "{projectRoot}/test-output/jest/coverage"
+      ],
       "options": {
         "jestConfig": "apps/electron/jest.config.ts"
       }

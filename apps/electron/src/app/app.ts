@@ -4,6 +4,10 @@ import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
 import { panel } from '@operator-panel/panel-core';
+import { createLed } from '../../../../libs/panel-core/src/lib/elements/led';
+import { createButton } from '../../../../libs/panel-core/src/lib/elements/button';
+import { SerialPort } from 'serialport';
+import { Key, keyboard } from '@nut-tree-fork/nut-js';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -70,7 +74,8 @@ export default class App {
       height: height,
       show: false,
       webPreferences: {
-        contextIsolation: true,
+        nodeIntegration: true, // to allow require
+        contextIsolation: false,
         backgroundThrottling: false,
         preload: join(__dirname, 'main.preload.js'),
       },
@@ -80,8 +85,24 @@ export default class App {
 
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
-      panel();
-      console.log('test');
+      console.log(
+        'panel loading',
+        panel({
+          elements: [
+            createLed({ pin: 13, blinking: true }),
+            createButton({
+              pin: 8,
+              onPress: () => {
+                console.log('DISPATCH !');
+                keyboard.pressKey(Key.Space);
+                setTimeout(() => {keyboard.releaseKey(Key.Space);}, 100)
+              },
+            }), 
+          ],
+          port: '/dev/tty.usbmodem101',
+        })
+      );
+      App.mainWindow.show();
     });
 
     // handle all external redirects in a new browser window

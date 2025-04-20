@@ -10,13 +10,14 @@ type Panel = {
 type PanelConfiguration = {
   elements: PanelElement[];
   onReady?: () => void;
+  port?: string;
 };
 
-export function panel({ elements, onReady }: PanelConfiguration): Panel {
+export function panel({ elements, onReady, port }: PanelConfiguration): Panel {
   const instance: Panel = {
     isReady: false,
   };
-  const board = new Board();
+  const board = new Board({port});
 
   board.on('ready', () => {
     elements.forEach((element) => {
@@ -32,6 +33,7 @@ export function panel({ elements, onReady }: PanelConfiguration): Panel {
       element.clean();
     });
   });
+  
 
   return instance;
 }
